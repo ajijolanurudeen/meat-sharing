@@ -14,19 +14,18 @@ async createUser(CreateUserDto:CreateUserDto):Promise<User> {
   return await newUser.save();
 }
 
-    async findAll(): Promise<User[]> {
+async findAll(): Promise<User[]> {
       return await this.userModel.find();
     }
   
-    async findOne(email: String):Promise<User> {
+async findOne(email: String):Promise<User> {
       return await this.userModel.findOne({email: email});
     }
-  
-  async update(email:String, updateUserDto: UpdateUserDto):Promise<User>{
+async update(email:String, updateUserDto: UpdateUserDto):Promise<User>{
       return await this.userModel.findByIdAndUpdate(email,UpdateUserDto,{new:true})
     }
   
-    async remove(email: String):Promise<User> {
+async remove(email: String):Promise<User> {
       return await this.userModel.findByIdAndDelete (email) 
     }
   }

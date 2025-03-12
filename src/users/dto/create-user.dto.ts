@@ -6,7 +6,7 @@ export class CreateUserDto {
     UserId: String;
 
     @IsString()
-    username: string;    // The user's username (required)
+    name: string;    // The user's username (required)
     
     @IsString()
     email: string;     // The user's email (required)
@@ -15,8 +15,11 @@ export class CreateUserDto {
     password: string;     // The user's password (required)
     
     @IsNumber()
-    age?: number;         // The user's age (optional)
+    phoneNumber: number;        
     
+    @IsString()
+    address: string; 
+
     @IsDate()
     createdAt?: Date;     // Timestamp of when the user was created (optional)
     
