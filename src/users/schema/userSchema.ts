@@ -2,27 +2,46 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Document } from 'mongoose';
 import { v4 as uuidv4 } from 'uuid';
 import * as bcrypt from 'bcrypt';
+import { IsDate,IsPhoneNumber,IsNotEmpty, IsString, IsUUID } from 'class-validator';
 
-@Schema()
+@Schema({timestamps: true})
 export class User extends Document {
   @Prop({ type: String, default: uuidv4 })
+  @IsUUID()
   userId: string;
 
   @Prop({ type: String, required: true, unique: true })
+  @IsString()
+  @IsNotEmpty()
   email: string;
 
   @Prop({ type: String, required: true, unique: true })
+  @IsString()
+  @IsNotEmpty()
   name: string;
 
-  @Prop({ type: Number, required: true, unique: true })  // Changed `Number` → `number`
-  phoneNumber: number;
+  @Prop({ required: true, unique: true })  // Changed `Number` → `number`
+  @IsPhoneNumber('NG')
+  phoneNumber: string;
 
   @Prop({ type: String, required: true })  // Removed `unique: true` if not necessary
+  @IsString()
+  @IsNotEmpty()
   address: string;
 
   @Prop({ type: String, required: true })
+  @IsString()
+  @IsNotEmpty()
   password: string;
 
+
+  @Prop({ default: Date.now })
+  @IsDate()
+  createdAt: Date;
+
+  @Prop({ default: Date.now })
+  @IsDate()
+  updatedAt: Date;
   // async comparePassword(candidatePassword: string): Promise<boolean> {
   //     return bcrypt.compare(candidatePassword, this.password);
   //   }

@@ -1,28 +1,24 @@
-import { IsEmail,isString,IsNumber,IsDate, IsString, isEmail, isNumber, isDate, IsUUID } from "class-validator";
+import { IsEmail,isString,IsPhoneNumber,IsDate, IsString, isEmail, isNumber, isDate, IsUUID, IsNotEmpty } from "class-validator";
 
 export class CreateUserDto {
-    @IsUUID()
-    @IsString()
-    UserId: String;
 
     @IsString()
+    @IsNotEmpty()
     name: string;    // The user's username (required)
     
     @IsString()
+     @IsNotEmpty()
     email: string;     // The user's email (required)
     
     @IsString()
+     @IsNotEmpty()
     password: string;     // The user's password (required)
     
-    @IsNumber()
-    phoneNumber: number;        
+    @IsPhoneNumber('NG')
+    phoneNumber: string;        
     
     @IsString()
+     @IsNotEmpty()
     address: string; 
-
-    @IsDate()
-    createdAt?: Date;     // Timestamp of when the user was created (optional)
-    
-    @IsDate()
-    updatedAt?: Date;     // Timestamp of when the user was last updated (optional)
+  
 }
