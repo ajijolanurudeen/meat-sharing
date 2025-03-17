@@ -12,9 +12,15 @@ import { ConfigModule, ConfigService } from '@nestjs/config';
 @Module({
   imports: [
     UsersModule,
+
     ConfigModule.forRoot({
       isGlobal: true,}
     ),
+    MongooseModule.forRoot(process.env.MONGO_URI,{
+      maxPoolSize: 10, // Limit connections
+      serverSelectionTimeoutMS: 5000,
+    }),
+
     MongooseModule.forRootAsync({
       imports: [ConfigModule],
       inject: [ConfigService],
